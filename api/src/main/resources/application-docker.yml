@@ -1,0 +1,19 @@
+server:
+  servlet:
+    context-path: /api/gestion_boutiques/v1.0
+  port: 8081
+
+spring:
+
+  jpa:
+    database: MYSQL
+    hibernate:
+      format-sql: true
+      ddl-auto: update
+    show-sql: true
+
+  datasource:
+    url: jdbc:mysql://${DB_SERVER}:3306/${MYSQL_DATABASE}?enabledTLSProtocols=TLSv1.2
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
