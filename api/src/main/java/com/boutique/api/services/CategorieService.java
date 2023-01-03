@@ -1,9 +1,11 @@
 package com.boutique.api.services;
 
-import com.boutique.api.dtos.CategorieDto;
+import com.boutique.api.dtos.categories.CategorieCreationDto;
 
 public interface CategorieService {
 
-    CategorieDto createCategorie(CategorieDto categorieDto);
+    CategorieCreationDto createCategorie(CategorieCreationDto categorieCreationDto);
+
+    CategorieCreationDto updateCategorie(CategorieCreationDto categorieCreationDto);
 
 }

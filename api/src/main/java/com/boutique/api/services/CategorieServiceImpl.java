@@ -1,8 +1,10 @@
 package com.boutique.api.services;
 
 import com.boutique.api.commons.exceptions.BoutiqueException;
-import com.boutique.api.commons.mappers.Mapper;
-import com.boutique.api.dtos.CategorieDto;
+import com.boutique.api.commons.mappers.CategorieMapper;
+import com.boutique.api.commons.utils.Constants;
+import com.boutique.api.commons.utils.IDGenerator;
+import com.boutique.api.dtos.categories.CategorieCreationDto;
 import com.boutique.api.entities.Categorie;
 import com.boutique.api.repositories.CategorieRepository;
 import lombok.AllArgsConstructor;
@@ -13,17 +15,25 @@ import org.springframework.stereotype.Service;
 public class CategorieServiceImpl implements CategorieService {
 
     private CategorieRepository categorieRepository;
-    private Mapper mapper;
+    private CategorieMapper categorieMapper;
+    private IDGenerator idGenerator;
 
     @Override
-    public CategorieDto createCategorie(CategorieDto categorieDto) {
-        boolean categorieExists = categorieRepository.findByNom(categorieDto.getNom()).isPresent();
+    public CategorieCreationDto createCategorie(CategorieCreationDto categorieCreationDto) {
+        boolean categorieExists = categorieRepository.findByNom(categorieCreationDto.getNom()).isPresent();
 
         if(categorieExists)
-            throw new BoutiqueException("La catégorie avec le nom: " + categorieDto.getNom() + ", existe déjà.");
-        Categorie createdCategorie = categorieRepository.save(mapper.toCategorie(categorieDto));
+            throw new BoutiqueException("La catégorie avec le nom: " + categorieCreationDto.getNom() + ", existe déjà.");
+        Categorie categorieToCreate = categorieMapper.toCategorie(categorieCreationDto);
+        categorieToCreate.setPublicId(idGenerator.generateStringId(Constants.PUBLIC_ID_LENGTH));
+        Categorie createdCategorie = categorieRepository.save(categorieMapper.toCategorie(categorieCreationDto));
 
-        return mapper.toCategorieDto(createdCategorie);
+        return categorieMapper.toCategorieCreationDto(createdCategorie);
+    }
+
+    @Override
+    public CategorieCreationDto updateCategorie(CategorieCreationDto categorieCreationDto) {
+        return null;
     }
 
 }

@@ -1,8 +1,7 @@
 package com.boutique.api.controllers;
 
-import com.boutique.api.dtos.CategorieDto;
+import com.boutique.api.dtos.categories.CategorieCreationDto;
 import com.boutique.api.services.CategorieService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -22,13 +21,13 @@ public class CategorieController {
     private CategorieService categorieService;
 
     @PostMapping
-    @ApiOperation(value = "Créer une catégorie", response = CategorieDto.class, tags = "createCategorie")
+    @ApiOperation(value = "Créer une catégorie", response = CategorieCreationDto.class, tags = "createCategorie")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Opération réussite"),
             @ApiResponse(responseCode= "400", description = "BadRequest") }
     )
-    public ResponseEntity<CategorieDto> createCategorie(@RequestBody @Valid CategorieDto categorieDto){
-        return ResponseEntity.ok(categorieService.createCategorie(categorieDto));
+    public ResponseEntity<CategorieCreationDto> createCategorie(@RequestBody @Valid CategorieCreationDto categorieCreationDto){
+        return ResponseEntity.ok(categorieService.createCategorie(categorieCreationDto));
     }
 
 }
