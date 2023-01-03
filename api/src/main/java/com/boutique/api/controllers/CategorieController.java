@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,10 +34,10 @@ public class CategorieController {
     }
 
     @PatchMapping("{publicId}")
-    @ApiOperation(value = "Mette à jour une catégorie", response = CategorieDto.class, tags = "createCategorie")
+    @ApiOperation(value = "Mette à jour une catégorie", response = CategorieDto.class, tags = "updateCategorie")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "La catégorie a été bien modifiée"),
-            @ApiResponse(responseCode = "400", description = "BadRequest"),
+            @ApiResponse(responseCode = "200", description = "La catégorie a été modifiée"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Not found")
     })
     public ResponseEntity<CategorieDto> updateCategorie(
@@ -44,6 +45,18 @@ public class CategorieController {
             @RequestBody @Valid CategorieCreationDto categorieCreationDto
     ) {
         return ResponseEntity.ok(categorieService.updateCategorie(publicId, categorieCreationDto));
+    }
+
+    @DeleteMapping("{publicId}")
+    @ApiOperation(value = "Supprimer une catégorie", tags = "deleteCategorie")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "La catégorie a été supprimée"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
+    public ResponseEntity<String> deleteCategorie(@PathVariable String publicId) {
+        categorieService.deleteCategorie(publicId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
