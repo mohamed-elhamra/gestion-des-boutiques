@@ -9,4 +9,6 @@ public interface CategorieService {
 
     CategorieDto updateCategorie(String publicId, CategorieCreationDto categorieCreationDto);
 
+    void deleteCategorie(String publicId);
+
 }
