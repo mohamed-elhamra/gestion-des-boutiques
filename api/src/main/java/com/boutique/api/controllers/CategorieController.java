@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
@@ -30,7 +31,7 @@ public class CategorieController {
             @ApiResponse(responseCode = "404", description = "Not found")
     })
     public ResponseEntity<CategorieDto> createCategorie(@RequestBody @Valid CategorieCreationDto categorieCreationDto) {
-        return ResponseEntity.ok(categorieService.createCategorie(categorieCreationDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(categorieService.createCategorie(categorieCreationDto));
     }
 
     @PatchMapping("{publicId}")
@@ -57,6 +58,17 @@ public class CategorieController {
     public ResponseEntity<String> deleteCategorie(@PathVariable String publicId) {
         categorieService.deleteCategorie(publicId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    @ApiOperation(value = "Créer une catégorie", response = CategorieDto.class, responseContainer = "List", tags = "getAllCategories")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Liste des catégories bien retournée"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
+    public ResponseEntity<List<CategorieDto>> getAllCategories() {
+        return ResponseEntity.ok(categorieService.getAllCategories());
     }
 
 }
