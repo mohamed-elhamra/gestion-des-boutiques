@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,7 @@ public class CategorieServiceImpl implements CategorieService {
     @Override
     public CategorieDto createCategorie(CategorieCreationDto categorieCreationDto) {
         logger.trace("Exécution de createCategorie()");
-        logger.debug("Vérifier si la catégorie existe déjà.");
+        logger.debug("Vérifier si la catégorie existe déjà avec le même id public.");
         boolean categorieExists = categorieRepository.findByNom(categorieCreationDto.getNom()).isPresent();
 
         if (categorieExists)
@@ -45,11 +46,11 @@ public class CategorieServiceImpl implements CategorieService {
     @Override
     public CategorieDto updateCategorie(String publicId, CategorieCreationDto categorieCreationDto) {
         logger.trace("Exécution de updateCategorie()");
-        logger.debug("Vérifier si la catégorie existe déjà.");
+        logger.debug("Vérifier si la catégorie existe déjà avec le même id public.");
         Categorie categorie = categorieRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new BoutiqueException("La catégorie avec l'id: " + publicId + ", n'existe pas."));
 
-        logger.debug("Vérifier si la catégorie existe déjà.");
+        logger.debug("Vérifier si la catégorie existe déjà avec le même nom.");
         Optional<Categorie> categorieExists =
                 categorieRepository.findByNom(categorieCreationDto.getNom());
 
@@ -65,11 +66,17 @@ public class CategorieServiceImpl implements CategorieService {
     @Override
     public void deleteCategorie(String publicId) {
         logger.trace("Exécution de deleteCategorie()");
-        logger.debug("Vérifier si la catégorie existe.");
+        logger.debug("Vérifier si la catégorie existe avec le même id public.");
         Categorie categorie = categorieRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new BoutiqueException("La catégorie avec l'id: " + publicId + ", n'existe pas."));
         categorieRepository.delete(categorie);
         logger.debug("Catégorie supprimée.");
+    }
+
+    @Override
+    public List<CategorieDto> getAllCategories() {
+        logger.trace("Exécution de getAllCategories()");
+        return categorieMapper.toListCategorieDtos(categorieRepository.findAll());
     }
 
 }
