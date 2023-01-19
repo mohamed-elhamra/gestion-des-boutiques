@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.Instant;
 
 @Data
@@ -15,14 +13,21 @@ import java.time.Instant;
 @Entity(name = "horaire_ouverture")
 public class HoraireOuverture {
 
-    @EmbeddedId
-    private HoraireOuvertureId horaireOuvertureId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String publicId;
 
+    private int jourOuverture;
+
     private Instant ouverture;
 
     private Instant fermeture;
+
+    @ManyToOne()
+    @JoinColumn(name = "boutique_id")
+    private Boutique boutique;
 
 }

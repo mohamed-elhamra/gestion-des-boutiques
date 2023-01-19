@@ -34,7 +34,7 @@ public class Boutique {
     @OneToMany(mappedBy = "boutique")
     private Set<Produit> produits = new HashSet<>();
 
-    @OneToMany(mappedBy = "horaireOuvertureId.boutique")
+    @OneToMany(mappedBy = "boutique")
     private Set<HoraireOuverture> horaireOuvertures = new HashSet<>();
 
 }
