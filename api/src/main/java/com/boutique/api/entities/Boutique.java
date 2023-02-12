@@ -1,15 +1,15 @@
 package com.boutique.api.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "boutiques")
@@ -32,9 +32,11 @@ public class Boutique {
     private Instant dateCreation;
 
     @OneToMany(mappedBy = "boutique")
+    @ToString.Exclude
     private Set<Produit> produits = new HashSet<>();
 
     @OneToMany(mappedBy = "boutique")
+    @ToString.Exclude
     private Set<HoraireOuverture> horaireOuvertures = new HashSet<>();
 
 }

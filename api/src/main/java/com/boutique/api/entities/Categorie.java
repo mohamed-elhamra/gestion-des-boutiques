@@ -1,13 +1,13 @@
 package com.boutique.api.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "categories")
@@ -29,6 +29,7 @@ public class Categorie {
             joinColumns = {@JoinColumn(name = "categories_id")},
             inverseJoinColumns = {@JoinColumn(name = "produits_id")}
     )
+    @ToString.Exclude
     private Set<Produit> produits;
 
 }

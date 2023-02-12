@@ -5,7 +5,7 @@ import com.boutique.api.commons.mappers.CategorieMapper;
 import com.boutique.api.commons.utils.Constants;
 import com.boutique.api.commons.utils.IDGenerator;
 import com.boutique.api.dtos.categories.CategorieCreationDto;
-import com.boutique.api.dtos.categories.CategorieDto;
+import com.boutique.api.dtos.categories.CategorieResponseDto;
 import com.boutique.api.entities.Categorie;
 import com.boutique.api.repositories.CategorieRepository;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ public class CategorieServiceImpl implements CategorieService {
     private final Logger logger = LoggerFactory.getLogger(CategorieServiceImpl.class);
 
     @Override
-    public CategorieDto createCategorie(CategorieCreationDto categorieCreationDto) {
+    public CategorieResponseDto createCategorie(CategorieCreationDto categorieCreationDto) {
         logger.trace("Exécution de createCategorie()");
         logger.debug("Vérifier si la catégorie existe déjà avec le même id public.");
         boolean categorieExists = categorieRepository.findByNom(categorieCreationDto.getNom()).isPresent();
@@ -34,17 +34,17 @@ public class CategorieServiceImpl implements CategorieService {
         if (categorieExists)
             throw new BoutiqueException("La catégorie avec le nom: " + categorieCreationDto.getNom() + ", existe déjà.");
         Categorie categorieToCreate = categorieMapper.toCategorie(categorieCreationDto);
-        categorieToCreate.setPublicId(idGenerator.generateStringId(Constants.PUBLIC_ID_LENGTH));
+        categorieToCreate.setPublicId(idGenerator.generateStringId());
 
         logger.debug("Création de la catégorie qui va être sauvegarder.");
         Categorie createdCategorie = categorieRepository.save(categorieToCreate);
         logger.debug("La catégorie a été sauvegardée.");
 
-        return categorieMapper.toCategorieDto(createdCategorie);
+        return categorieMapper.toCategorieResponseDto(createdCategorie);
     }
 
     @Override
-    public CategorieDto updateCategorie(String publicId, CategorieCreationDto categorieCreationDto) {
+    public CategorieResponseDto updateCategorie(String publicId, CategorieCreationDto categorieCreationDto) {
         logger.trace("Exécution de updateCategorie()");
         logger.debug("Vérifier si la catégorie existe déjà avec le même id public.");
         Categorie categorie = categorieRepository.findByPublicId(publicId)
@@ -60,7 +60,7 @@ public class CategorieServiceImpl implements CategorieService {
         categorie.setNom(categorieCreationDto.getNom());
 
         logger.debug("MàJ de la catégorie.");
-        return categorieMapper.toCategorieDto(categorieRepository.save(categorie));
+        return categorieMapper.toCategorieResponseDto(categorieRepository.save(categorie));
     }
 
     @Override
@@ -74,9 +74,9 @@ public class CategorieServiceImpl implements CategorieService {
     }
 
     @Override
-    public List<CategorieDto> getAllCategories() {
+    public List<CategorieResponseDto> getAllCategories() {
         logger.trace("Exécution de getAllCategories()");
-        return categorieMapper.toListCategorieDtos(categorieRepository.findAll());
+        return categorieMapper.toListCategorieResponseDto(categorieRepository.findAll());
     }
 
 }
