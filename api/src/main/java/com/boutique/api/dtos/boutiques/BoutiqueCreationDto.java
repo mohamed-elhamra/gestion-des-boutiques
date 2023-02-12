@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 @Data
@@ -14,6 +15,7 @@ public class BoutiqueCreationDto {
 
     private String nom;
     private boolean isConge;
+    @Valid
     Set<HoraireOuvertureCreationDto> horaireOuvertures;
 
 }

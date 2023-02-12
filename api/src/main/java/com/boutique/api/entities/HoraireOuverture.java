@@ -21,7 +21,7 @@ public class HoraireOuverture {
     private String publicId;
 
     @Column(nullable = false)
-    private int jourOuverture;
+    private int jour;
 
     @Column(nullable = false)
     private LocalTime ouverture;

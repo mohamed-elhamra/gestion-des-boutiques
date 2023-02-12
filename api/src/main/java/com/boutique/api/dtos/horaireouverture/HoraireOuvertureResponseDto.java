@@ -12,7 +12,7 @@ import java.time.LocalTime;
 public class HoraireOuvertureResponseDto {
 
     private String publicId;
-    private int jourOuverture;
+    private int jour;
     private LocalTime ouverture;
     private LocalTime fermeture;
 
