@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Test Spring Boot application
-      run: ./mvnw clean test
+      run: ./api/mvnw clean test
 
   build:
     runs-on: ubuntu-latest
@@ -23,4 +23,4 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Package Spring Boot application
-      run: ./mvnw clean package
+      run: ./api/mvnw clean package
