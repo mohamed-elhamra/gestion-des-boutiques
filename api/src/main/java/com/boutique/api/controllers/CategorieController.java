@@ -1,7 +1,7 @@
 package com.boutique.api.controllers;
 
 import com.boutique.api.dtos.categories.CategorieCreationDto;
-import com.boutique.api.dtos.categories.CategorieDto;
+import com.boutique.api.dtos.categories.CategorieResponseDto;
 import com.boutique.api.services.CategorieService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,24 +24,24 @@ public class CategorieController {
     private CategorieService categorieService;
 
     @PostMapping
-    @ApiOperation(value = "Créer une catégorie", response = CategorieDto.class, tags = "createCategorie")
+    @ApiOperation(value = "Créer une catégorie", response = CategorieResponseDto.class, tags = "createCategorie")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "La catégorie a été créé"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Not found")
     })
-    public ResponseEntity<CategorieDto> createCategorie(@RequestBody @Valid CategorieCreationDto categorieCreationDto) {
+    public ResponseEntity<CategorieResponseDto> createCategorie(@RequestBody @Valid CategorieCreationDto categorieCreationDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(categorieService.createCategorie(categorieCreationDto));
     }
 
     @PatchMapping("{publicId}")
-    @ApiOperation(value = "Mette à jour une catégorie", response = CategorieDto.class, tags = "updateCategorie")
+    @ApiOperation(value = "Mette à jour une catégorie", response = CategorieResponseDto.class, tags = "updateCategorie")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "La catégorie a été modifiée"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Not found")
     })
-    public ResponseEntity<CategorieDto> updateCategorie(
+    public ResponseEntity<CategorieResponseDto> updateCategorie(
             @PathVariable String publicId,
             @RequestBody @Valid CategorieCreationDto categorieCreationDto
     ) {
@@ -61,13 +61,13 @@ public class CategorieController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Créer une catégorie", response = CategorieDto.class, responseContainer = "List", tags = "getAllCategories")
+    @ApiOperation(value = "Créer une catégorie", response = CategorieResponseDto.class, responseContainer = "List", tags = "getAllCategories")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Liste des catégories bien retournée"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Not found")
     })
-    public ResponseEntity<List<CategorieDto>> getAllCategories() {
+    public ResponseEntity<List<CategorieResponseDto>> getAllCategories() {
         return ResponseEntity.ok(categorieService.getAllCategories());
     }
 

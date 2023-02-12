@@ -1,13 +1,15 @@
 package com.boutique.api.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "produits")
@@ -37,6 +39,7 @@ public class Produit {
     private Boutique boutique;
 
     @ManyToMany(mappedBy = "produits")
+    @ToString.Exclude
     private Set<Categorie> categories;
 
 }

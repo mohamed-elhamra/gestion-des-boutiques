@@ -1,13 +1,13 @@
 package com.boutique.api.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.time.LocalTime;
 
-@Data
+@Setter
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "horaire_ouverture")
@@ -20,11 +20,14 @@ public class HoraireOuverture {
     @Column(nullable = false, unique = true)
     private String publicId;
 
-    private int jourOuverture;
+    @Column(nullable = false)
+    private int jour;
 
-    private Instant ouverture;
+    @Column(nullable = false)
+    private LocalTime ouverture;
 
-    private Instant fermeture;
+    @Column(nullable = false)
+    private LocalTime fermeture;
 
     @ManyToOne()
     @JoinColumn(name = "boutique_id")
