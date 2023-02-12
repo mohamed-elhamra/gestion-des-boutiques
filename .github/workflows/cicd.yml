@@ -10,7 +10,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+    
+    - name: Give execute permission to mvnw script
+      run: chmod +x ./api/mvnw
+    
     - name: Test Spring Boot application
       run: ./api/mvnw clean test
 
@@ -21,6 +24,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+    
+    - name: Give execute permission to mvnw script
+      run: chmod +x ./api/mvnw
+    
     - name: Package Spring Boot application
       run: ./api/mvnw clean package
