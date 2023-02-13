@@ -16,15 +16,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class BoutiqueServiceImpl implements BoutiqueService {
 
-    BoutiqueRepository boutiqueRepository;
-    HoraireOuvertureRepository horaireOuvertureRepository;
-    BoutiqueMapper boutiqueMapper;
+    private BoutiqueRepository boutiqueRepository;
+    private HoraireOuvertureRepository horaireOuvertureRepository;
+    private BoutiqueMapper boutiqueMapper;
     private IDGenerator idGenerator;
     private final Logger logger = LoggerFactory.getLogger(CategorieServiceImpl.class);
 
@@ -57,6 +59,15 @@ public class BoutiqueServiceImpl implements BoutiqueService {
         logger.debug("Sauvegarde des horaires d'ouvertures.");
         horaireOuvertureRepository.saveAll(horaireOuvertures);
         return boutiqueMapper.toBoutiqueResponseDto(createdBoutique);
+    }
+
+    @Override
+    public List<BoutiqueResponseDto> listeBoutiques() {
+        logger.trace("Exécution de listeBoutiques()");
+
+        return boutiqueRepository.findAll().stream()
+                .map(boutiqueMapper::toBoutiqueResponseDto)
+                .collect(Collectors.toList());
     }
 
 }
