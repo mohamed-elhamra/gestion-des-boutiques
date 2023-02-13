@@ -23,7 +23,7 @@ jobs:
           maven-version: 3.8.2
       
       - name: Change working directory to api
-        run: cd gestion-des-boutiques/api
+        run: cd /home/runner/work/gestion-des-boutiques/gestion-des-boutiques/api
 
       - name: All the Tests and Coverage check
         run: mvn clean install
@@ -48,7 +48,7 @@ jobs:
           maven-version: 3.8.2
           
       - name: Change working directory to api
-        run: cd gestion-des-boutiques/api
+        run: cd /home/runner/work/gestion-des-boutiques/gestion-des-boutiques/api
 
       - name: Package Spring Boot application
         run: mvn clean package
