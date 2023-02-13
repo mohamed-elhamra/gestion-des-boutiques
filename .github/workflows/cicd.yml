@@ -21,12 +21,9 @@ jobs:
         uses: stCarolas/setup-maven@v4.4
         with:
           maven-version: 3.8.2
-      
-      - name: Change working directory to api
-        run: cd /home/runner/work/gestion-des-boutiques/gestion-des-boutiques/api
 
       - name: All the Tests and Coverage check
-        run: mvn -f /home/runner/work/gestion-des-boutiques/gestion-des-boutiques/api/pom.xml clean install
+        run: mvn -f /home/runner/work/gestion-des-boutiques/gestion-des-boutiques/api/pom.xml clean install -Dspring.profiles.active=test
 
   build:
     runs-on: ubuntu-latest
@@ -46,9 +43,6 @@ jobs:
         uses: stCarolas/setup-maven@v4.4
         with:
           maven-version: 3.8.2
-          
-      - name: Change working directory to api
-        run: cd /home/runner/work/gestion-des-boutiques/gestion-des-boutiques/api
 
       - name: Package Spring Boot application
-        run: mvn -f /home/runner/work/gestion-des-boutiques/gestion-des-boutiques/api/pom.xml clean package
+        run: mvn -f /home/runner/work/gestion-des-boutiques/gestion-des-boutiques/api/pom.xml clean package -Dspring.profiles.active=test
