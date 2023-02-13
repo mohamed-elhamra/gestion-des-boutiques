@@ -21,6 +21,9 @@ jobs:
         uses: stCarolas/setup-maven@v4.4
         with:
           maven-version: 3.8.2
+      
+      - name: Change working directory to api
+        run: cd ./api
 
       - name: All the Tests and Coverage check
         run: mvn clean install
@@ -43,6 +46,9 @@ jobs:
         uses: stCarolas/setup-maven@v4.4
         with:
           maven-version: 3.8.2
+          
+      - name: Change working directory to api
+        run: cd ./api
 
       - name: Package Spring Boot application
         run: mvn clean package
