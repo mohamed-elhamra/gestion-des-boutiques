@@ -5,6 +5,19 @@ on:
 
 jobs:
 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker images
+        run: docker-compose build
+        env:
+          DOCKER_BUILDKIT: 1
+          COMPOSE_DOCKER_CLI_BUILD: 1
+  
   test:
     runs-on: ubuntu-latest
 
@@ -25,33 +38,13 @@ jobs:
 
       - name: All the Tests and Coverage check
         run: mvn -f /home/runner/work/gestion-des-boutiques/gestion-des-boutiques/api/pom.xml clean install -Dspring.profiles.active=test
-
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # - name: Set up Docker Compose
-      #   uses: docker/compose@v2.2.1
-
-      - name: Build Docker images
-        run: docker-compose build
-        env:
-          DOCKER_BUILDKIT: 1
-          COMPOSE_DOCKER_CLI_BUILD: 1
     
   deploy:
-    needs: build
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      # - name: Set up Docker Compose
-      #   uses: docker/compose@v2.2.1
 
       - name: Deploy with Docker Compose
         run: docker-compose up -d
