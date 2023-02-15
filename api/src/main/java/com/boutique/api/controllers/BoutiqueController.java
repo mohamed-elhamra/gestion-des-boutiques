@@ -57,4 +57,16 @@ public class BoutiqueController {
         return ResponseEntity.accepted().body(boutiqueService.updateBoutique(publicId, boutiqueCreationDto));
     }
 
+    @Operation(summary = "Supprimer une boutique", description = "Cette methode supprime une boutique")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "La boutique a été supprimée"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
+    @DeleteMapping("{publicId}")
+    public ResponseEntity<String> deleteBoutique(@PathVariable String publicId) {
+        boutiqueService.deleteBoutique(publicId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

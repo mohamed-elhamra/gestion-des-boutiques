@@ -14,4 +14,6 @@ public interface BoutiqueService {
 
     BoutiqueResponseDto updateBoutique(String publicId, BoutiqueCreationDto boutiqueCreationDto);
 
+    void deleteBoutique(String publicId);
+
 }
