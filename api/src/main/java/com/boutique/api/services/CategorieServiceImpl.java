@@ -79,4 +79,11 @@ public class CategorieServiceImpl implements CategorieService {
         return categorieMapper.toListCategorieResponseDto(categorieRepository.findAll());
     }
 
+    @Override
+    public CategorieResponseDto getCategorie(String publicId) {
+        Categorie categorie = categorieRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new BoutiqueException("La catégorie avec l'id: " + publicId + ", n'existe pas."));
+        return categorieMapper.toCategorieResponseDto(categorie);
+    }
+
 }
