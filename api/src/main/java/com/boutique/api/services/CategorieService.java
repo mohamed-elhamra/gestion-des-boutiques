@@ -15,4 +15,6 @@ public interface CategorieService {
 
     List<CategorieResponseDto> getAllCategories();
 
+    CategorieResponseDto getCategorie(String publicId);
+
 }

@@ -26,7 +26,7 @@ public class BoutiqueController {
 
     @Operation(summary = "Créer une boutique", description = "Cette methode crée une boutique")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "La boutique a été créé"),
+            @ApiResponse(responseCode = "201", description = "La boutique a été créé"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Not found")
     })

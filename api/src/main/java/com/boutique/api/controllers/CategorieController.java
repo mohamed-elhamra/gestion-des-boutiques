@@ -26,7 +26,7 @@ public class CategorieController {
 
     @Operation(summary = "Créer une catégorie", description = "Cette methode crée une catégorie")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "La catégorie a été créé"),
+            @ApiResponse(responseCode = "201", description = "La catégorie a été créé"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Not found")
     })
@@ -70,6 +70,17 @@ public class CategorieController {
     @GetMapping
     public ResponseEntity<List<CategorieResponseDto>> getAllCategories() {
         return ResponseEntity.ok(categorieService.getAllCategories());
+    }
+
+    @Operation(summary = "Détails d'une catégorie", description = "Cette methode retourne les détails d'une catégorie")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Les détails d'une catégorie sont bien retournés"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
+    @GetMapping("/{publicId}")
+    public ResponseEntity<CategorieResponseDto> getCategorie(@PathVariable String publicId) {
+        return ResponseEntity.ok(categorieService.getCategorie(publicId));
     }
 
 }
