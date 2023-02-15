@@ -31,11 +31,11 @@ public class Boutique {
     @Column(nullable = false)
     private LocalDateTime dateCreation;
 
-    @OneToMany(mappedBy = "boutique")
+    @OneToMany(mappedBy = "boutique", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private Set<Produit> produits = new HashSet<>();
 
-    @OneToMany(mappedBy = "boutique")
+    @OneToMany(mappedBy = "boutique", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private Set<HoraireOuverture> horaireOuvertures = new HashSet<>();
 

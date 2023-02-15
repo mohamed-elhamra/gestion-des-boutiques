@@ -113,4 +113,14 @@ public class BoutiqueServiceImpl implements BoutiqueService {
         return boutiqueMapper.toBoutiqueResponseDto(updatedBoutique);
     }
 
+    @Override
+    public void deleteBoutique(String publicId) {
+        logger.trace("Exécution de deleteBoutique()");
+        logger.debug("Vérifier si la boutique existe avec le même id public.");
+        Boutique boutique = boutiqueRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new BoutiqueException("Il n y a pas une boutique avec cet id: " + publicId));
+        boutiqueRepository.delete(boutique);
+        logger.debug("Boutique supprimée.");
+    }
+
 }
