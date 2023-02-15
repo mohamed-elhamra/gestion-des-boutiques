@@ -20,7 +20,7 @@ public class Produit {
     @Column(nullable = false, unique = true)
     private String publicId;
 
-    @Column(length = 60, nullable = false, unique = true)
+    @Column(length = 60, nullable = false)
     private String nom;
 
     @Column(nullable = false)
