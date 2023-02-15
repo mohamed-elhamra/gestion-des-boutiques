@@ -10,5 +10,7 @@ import java.util.Optional;
 public interface BoutiqueRepository extends JpaRepository<Boutique, Long> {
 
     Optional<Boutique> findByNom(String nom);
+    Optional<Boutique> findByPublicId(String publicId);
+    Optional<Boutique> findByPublicIdAndNom(String publicId, String nom);
 
 }
