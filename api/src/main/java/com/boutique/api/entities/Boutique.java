@@ -3,7 +3,7 @@ package com.boutique.api.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,13 +29,13 @@ public class Boutique {
     private boolean isConge;
 
     @Column(nullable = false)
-    private Instant dateCreation;
+    private LocalDateTime dateCreation;
 
-    @OneToMany(mappedBy = "boutique")
+    @OneToMany(mappedBy = "boutique", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private Set<Produit> produits = new HashSet<>();
 
-    @OneToMany(mappedBy = "boutique")
+    @OneToMany(mappedBy = "boutique", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private Set<HoraireOuverture> horaireOuvertures = new HashSet<>();
 

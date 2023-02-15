@@ -12,7 +12,7 @@ public abstract class HoraireOuvertureMapper {
 
     public abstract HoraireOuverture toHoraireOuverture(HoraireOuvertureCreationDto horaireOuvertureCreationDto);
 
-    public abstract HoraireOuvertureResponseDto horaireOuvertureReponseDto(HoraireOuvertureResponseDto horaireOuvertureResponseDto);
+    public abstract HoraireOuvertureResponseDto toHoraireOuvertureResponseDto(HoraireOuvertureResponseDto horaireOuvertureResponseDto);
 
     public abstract Set<HoraireOuverture> toListHoraireOuverture(Set<HoraireOuvertureCreationDto> listHoraireOuvertureCreationDto);
 

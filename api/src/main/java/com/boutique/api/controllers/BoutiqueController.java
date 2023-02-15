@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/boutiques")
 @AllArgsConstructor
-@Api(value = "Controlleur de boutique")
+@Api(value = "Contrôleur de boutique")
 public class BoutiqueController {
 
     private BoutiqueService boutiqueService;
@@ -44,6 +44,29 @@ public class BoutiqueController {
     @GetMapping
     public ResponseEntity<List<BoutiqueResponseDto>> getAllBoutiques() {
         return ResponseEntity.ok(boutiqueService.listeBoutiques());
+    }
+
+    @Operation(summary = "Mettre à jour une boutique", description = "Cette methode met à jour une boutique")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "202", description = "La boutique a été modifiée"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
+    @PatchMapping("/{publicId}")
+    public ResponseEntity<BoutiqueResponseDto> updateBoutique(@PathVariable String publicId, @RequestBody @Valid BoutiqueCreationDto boutiqueCreationDto) {
+        return ResponseEntity.accepted().body(boutiqueService.updateBoutique(publicId, boutiqueCreationDto));
+    }
+
+    @Operation(summary = "Supprimer une boutique", description = "Cette methode supprime une boutique")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "La boutique a été supprimée"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
+    @DeleteMapping("{publicId}")
+    public ResponseEntity<String> deleteBoutique(@PathVariable String publicId) {
+        boutiqueService.deleteBoutique(publicId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
