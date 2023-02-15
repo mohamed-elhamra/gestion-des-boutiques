@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/categories")
 @AllArgsConstructor
-@Api(value = "Controlleur de catégorie")
+@Api(value = "Contrôleur de catégorie")
 public class CategorieController {
 
     private CategorieService categorieService;
@@ -37,7 +37,7 @@ public class CategorieController {
 
     @Operation(summary = "Mette à jour une catégorie", description = "Cette methode met à jour une catégorie")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "La catégorie a été modifiée"),
+            @ApiResponse(responseCode = "202", description = "La catégorie a été modifiée"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Not found")
     })
@@ -46,7 +46,7 @@ public class CategorieController {
             @PathVariable String publicId,
             @RequestBody @Valid CategorieCreationDto categorieCreationDto
     ) {
-        return ResponseEntity.ok(categorieService.updateCategorie(publicId, categorieCreationDto));
+        return ResponseEntity.accepted().body(categorieService.updateCategorie(publicId, categorieCreationDto));
     }
 
     @Operation(summary = "Supprimer une catégorie", description = "Cette methode supprime une catégorie")

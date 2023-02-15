@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -53,7 +54,7 @@ public class BoutiqueServiceImpl implements BoutiqueService {
             ho.setBoutique(boutique);
         });
 
-        boutique.setDateCreation(Instant.now());
+        boutique.setDateCreation(LocalDateTime.now());
         boutique.setPublicId(idGenerator.generateStringId());
 
         logger.debug("Sauvegarde de la boutique.");
@@ -76,12 +77,14 @@ public class BoutiqueServiceImpl implements BoutiqueService {
     @Override
     @Transactional
     public BoutiqueResponseDto updateBoutique(String publicId, BoutiqueCreationDto boutiqueCreationDto) {
+        logger.trace("Exécution de updateBoutique()");
+
         Boutique boutiqueByPublicId = boutiqueRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new BoutiqueException("Il n y a pas une boutique avec cet id: " + publicId));
         Optional<Boutique> boutiqueByNom = boutiqueRepository.findByNom(boutiqueCreationDto.getNom());
 
         logger.debug("Vérifier si la boutique existe déjà avec le même nom.");
-        if(boutiqueByNom.isPresent() && boutiqueByNom.get().getNom().equals(boutiqueByPublicId.getNom()))
+        if(boutiqueByNom.isPresent() && !boutiqueByNom.get().getNom().equals(boutiqueByPublicId.getNom()))
             throw new BoutiqueException("La boutique avec le nom: " + boutiqueCreationDto.getNom() + ", existe déjà.");
 
         logger.debug("MàJ de la boutique.");
@@ -104,6 +107,8 @@ public class BoutiqueServiceImpl implements BoutiqueService {
 
         logger.debug("Sauvegarde de la boutique.");
         Boutique updatedBoutique = boutiqueRepository.save(boutiqueByPublicId);
+        updatedBoutique.getHoraireOuvertures().clear();
+        updatedBoutique.setHoraireOuvertures(horaireOuvertures);
 
         return boutiqueMapper.toBoutiqueResponseDto(updatedBoutique);
     }
