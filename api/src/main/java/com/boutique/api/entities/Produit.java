@@ -34,7 +34,7 @@ public class Produit {
     @Column(nullable = false)
     private Long quantite;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "boutique_id")
     private Boutique boutique;
 

@@ -12,4 +12,6 @@ public interface BoutiqueService {
 
     List<BoutiqueResponseDto> listeBoutiques();
 
+    BoutiqueResponseDto updateBoutique(String publicId, BoutiqueCreationDto boutiqueCreationDto);
+
 }
