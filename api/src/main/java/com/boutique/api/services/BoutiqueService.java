@@ -16,4 +16,6 @@ public interface BoutiqueService {
 
     void deleteBoutique(String publicId);
 
+    BoutiqueResponseDto getBoutique(String publicId);
+
 }

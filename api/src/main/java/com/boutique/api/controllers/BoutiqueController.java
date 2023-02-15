@@ -46,6 +46,17 @@ public class BoutiqueController {
         return ResponseEntity.ok(boutiqueService.listeBoutiques());
     }
 
+    @Operation(summary = "Détails d'une boutique", description = "Cette methode retourne les détails d'une boutique")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Les détails d'une boutique sont bien retournés"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
+    @GetMapping("/{publicId}")
+    public ResponseEntity<BoutiqueResponseDto> getAllBoutique(@PathVariable String publicId) {
+        return ResponseEntity.ok(boutiqueService.getBoutique(publicId));
+    }
+
     @Operation(summary = "Mettre à jour une boutique", description = "Cette methode met à jour une boutique")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "202", description = "La boutique a été modifiée"),
