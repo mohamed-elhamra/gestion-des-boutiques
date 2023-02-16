@@ -11,4 +11,6 @@ public interface ProduitService {
 
     ProduitResponseDto getProduit(String publicId);
 
+    void deleteProduit(String publicId);
+
 }

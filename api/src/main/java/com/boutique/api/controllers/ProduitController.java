@@ -56,4 +56,16 @@ public class ProduitController {
         return ResponseEntity.ok(produitService.getProduit(publicId));
     }
 
+    @Operation(summary = "Supprimer un produit", description = "Cette methode supprime un produit")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Le produit a été supprimé"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
+    @DeleteMapping("{publicId}")
+    public ResponseEntity<String> deleteProduit(@PathVariable String publicId) {
+        produitService.deleteProduit(publicId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
