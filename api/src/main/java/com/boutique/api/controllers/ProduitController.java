@@ -1,5 +1,6 @@
 package com.boutique.api.controllers;
 
+import com.boutique.api.dtos.boutiques.BoutiqueResponseDto;
 import com.boutique.api.dtos.produits.ProduitCreationDto;
 import com.boutique.api.dtos.produits.ProduitResponseDto;
 import com.boutique.api.services.ProduitService;
@@ -42,6 +43,17 @@ public class ProduitController {
     @PatchMapping("/{publicId}")
     public ResponseEntity<ProduitResponseDto> updateProduit(@PathVariable String publicId, @RequestBody @Valid ProduitCreationDto produitCreationDto) {
         return ResponseEntity.accepted().body(produitService.updateProduit(publicId, produitCreationDto));
+    }
+
+    @Operation(summary = "Détails d'un produit", description = "Cette methode retourne les détails d'un produit")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Les détails d'un produit sont bien retournés"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
+    @GetMapping("/{publicId}")
+    public ResponseEntity<ProduitResponseDto> getProduit(@PathVariable String publicId) {
+        return ResponseEntity.ok(produitService.getProduit(publicId));
     }
 
 }
