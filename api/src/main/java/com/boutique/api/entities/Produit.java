@@ -3,6 +3,7 @@ package com.boutique.api.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -36,7 +37,12 @@ public class Produit {
     @JoinColumn(name = "boutique_id")
     private Boutique boutique;
 
-    @ManyToMany(mappedBy = "produits")
+    @ManyToMany
+    @JoinTable(
+            name = "categories_produits",
+            joinColumns = {@JoinColumn(name = "categories_id")},
+            inverseJoinColumns = {@JoinColumn(name = "produits_id")}
+    )
     @ToString.Exclude
     private Set<Categorie> categories;
 

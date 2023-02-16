@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ProduitResponseDto {
 
+    private String publicId;
     private String nom;
     private String description;
     private Float prix;

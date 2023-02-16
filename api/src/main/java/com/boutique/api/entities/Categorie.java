@@ -23,12 +23,7 @@ public class Categorie {
     @Column(length = 60, nullable = false, unique = true)
     private String nom;
 
-    @ManyToMany
-    @JoinTable(
-            name = "categories_produits",
-            joinColumns = {@JoinColumn(name = "categories_id")},
-            inverseJoinColumns = {@JoinColumn(name = "produits_id")}
-    )
+    @ManyToMany(mappedBy = "categories")
     @ToString.Exclude
     private Set<Produit> produits;
 
