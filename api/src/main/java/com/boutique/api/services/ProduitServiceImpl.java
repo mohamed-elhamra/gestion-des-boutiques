@@ -1,7 +1,6 @@
 package com.boutique.api.services;
 
 import com.boutique.api.commons.exceptions.BoutiqueException;
-import com.boutique.api.commons.mappers.CategorieMapper;
 import com.boutique.api.commons.mappers.ProduitMapper;
 import com.boutique.api.commons.utils.IDGenerator;
 import com.boutique.api.dtos.produits.ProduitCreationDto;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class ProduitServiceImpl implements ProduitService{
+public class ProduitServiceImpl implements ProduitService {
 
     private CategorieRepository categorieRepository;
     private BoutiqueRepository boutiqueRepository;
@@ -69,7 +68,7 @@ public class ProduitServiceImpl implements ProduitService{
                 .orElseThrow(() -> new BoutiqueException("Il n y a pas un produit avec cet id: " + publicId));
 
         logger.debug("Vérifier si la boutique existe avec cet id public.");
-        Boutique boutiqueByPublicId = boutiqueRepository.findByPublicId(publicId)
+        Boutique boutiqueByPublicId = boutiqueRepository.findByPublicId(produitCreationDto.getBoutiquePublicId())
                 .orElseThrow(() -> new BoutiqueException("Il n y a pas une boutique avec cet id: " + publicId));
 
         logger.debug("Vérifier si les categories existent avec cet id public.");
@@ -78,19 +77,21 @@ public class ProduitServiceImpl implements ProduitService{
                 .collect(Collectors.toSet());
 
         logger.debug("Vérifier si un produit existe déjà avec le même nom dans la même boutique.");
-        Optional<Produit> produitByNomAndBoutique = produitRepository.findByPublicId(publicId);
-        if(produitByNomAndBoutique.isPresent() && !produitByNomAndBoutique.get().getNom().equals(produitByPublicId.getNom()))
+        Optional<Produit> produitByNomAndBoutique = produitRepository.findByNomAndBoutique(produitCreationDto.getNom(), boutiqueByPublicId);
+        if (produitByNomAndBoutique.isPresent() && produitByNomAndBoutique.get().getNom().equals(produitByPublicId.getNom()))
             throw new BoutiqueException("Un produit avec le nom (" + produitCreationDto.getNom() + ") existe déjà dans cette boutique.");
 
         logger.debug("MàJ du produit.");
-        produitByPublicId.setBoutique(boutiqueByPublicId);
-        produitByPublicId.getCategories().clear();
-        produitByPublicId.setCategories(categories);
+        Produit produit = produitMapper.toProduit(produitCreationDto);
+        produit.setId(produitByPublicId.getId());
+        produit.setPublicId(produitByPublicId.getPublicId());
+        produit.setBoutique(boutiqueByPublicId);
+        produit.setCategories(categories);
 
-        return produitMapper.toProduitResponseDto(produitRepository.save(produitByPublicId));
+        return produitMapper.toProduitResponseDto(produitRepository.save(produit));
     }
 
-    private Categorie fromPublicIdToCategorie(String publicId){
+    private Categorie fromPublicIdToCategorie(String publicId) {
         return categorieRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new BoutiqueException("La catégorie avec l'id: " + publicId + ", n'existe pas."));
     }

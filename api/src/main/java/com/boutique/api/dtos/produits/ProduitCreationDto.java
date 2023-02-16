@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ProduitCreationDto {
 
-    @Size(min = 4, max = 50, message = "Le nom doit être compris entre 4 et 20 caractères.")
+    @Size(min = 2, max = 50, message = "Le nom doit être compris entre 2 et 20 caractères.")
     private String nom;
 
     @Size(min = 8, message = "La description doit être plus exhaustive.")
@@ -29,7 +29,6 @@ public class ProduitCreationDto {
     @NotBlank(message = "L'id public de la boutique est obligatoire.")
     private String boutiquePublicId;
 
-    @NotBlank(message = "L'id public de la catégorie est obligatoire.")
     private List<String> categoriesPublicId;
 
 }
