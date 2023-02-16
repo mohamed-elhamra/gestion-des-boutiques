@@ -2,6 +2,7 @@ package com.boutique.api.controllers;
 
 import com.boutique.api.dtos.boutiques.BoutiqueCreationDto;
 import com.boutique.api.dtos.boutiques.BoutiqueResponseDto;
+import com.boutique.api.dtos.produits.ProduitResponseDto;
 import com.boutique.api.services.BoutiqueService;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
@@ -78,6 +79,17 @@ public class BoutiqueController {
     public ResponseEntity<String> deleteBoutique(@PathVariable String publicId) {
         boutiqueService.deleteBoutique(publicId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Operation(summary = "Récupérer les produits de la boutique", description = "Cette methode retourne la liste des produits d'une boutique")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "LA liste des produits est retournées"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
+    @GetMapping("/{publicId}/produits")
+    public ResponseEntity<List<ProduitResponseDto>> getProduits(@PathVariable String publicId) {
+        return ResponseEntity.ok(boutiqueService.getProduits(publicId));
     }
 
 }
