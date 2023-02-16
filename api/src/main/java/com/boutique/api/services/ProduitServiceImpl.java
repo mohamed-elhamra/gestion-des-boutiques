@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,36 @@ public class ProduitServiceImpl implements ProduitService{
 
         logger.debug("Sauvegarde produit.");
         return produitMapper.toProduitResponseDto(produitRepository.save(produit));
+    }
+
+    @Override
+    public ProduitResponseDto updateProduit(String publicId, ProduitCreationDto produitCreationDto) {
+        logger.trace("Exécution de updateProduit()");
+
+        logger.debug("Vérifier si le produit existe avec cet id public.");
+        Produit produitByPublicId = produitRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new BoutiqueException("Il n y a pas un produit avec cet id: " + publicId));
+
+        logger.debug("Vérifier si la boutique existe avec cet id public.");
+        Boutique boutiqueByPublicId = boutiqueRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new BoutiqueException("Il n y a pas une boutique avec cet id: " + publicId));
+
+        logger.debug("Vérifier si les categories existent avec cet id public.");
+        Set<Categorie> categories = produitCreationDto.getCategoriesPublicId().stream()
+                .map(this::fromPublicIdToCategorie)
+                .collect(Collectors.toSet());
+
+        logger.debug("Vérifier si un produit existe déjà avec le même nom dans la même boutique.");
+        Optional<Produit> produitByNomAndBoutique = produitRepository.findByPublicId(publicId);
+        if(produitByNomAndBoutique.isPresent() && !produitByNomAndBoutique.get().getNom().equals(produitByPublicId.getNom()))
+            throw new BoutiqueException("Un produit avec le nom (" + produitCreationDto.getNom() + ") existe déjà dans cette boutique.");
+
+        logger.debug("MàJ du produit.");
+        produitByPublicId.setBoutique(boutiqueByPublicId);
+        produitByPublicId.getCategories().clear();
+        produitByPublicId.setCategories(categories);
+
+        return produitMapper.toProduitResponseDto(produitRepository.save(produitByPublicId));
     }
 
     private Categorie fromPublicIdToCategorie(String publicId){

@@ -46,6 +46,7 @@ public class CategorieServiceImpl implements CategorieService {
     @Override
     public CategorieResponseDto updateCategorie(String publicId, CategorieCreationDto categorieCreationDto) {
         logger.trace("Exécution de updateCategorie()");
+
         logger.debug("Vérifier si la catégorie existe déjà avec le même id public.");
         Categorie categorie = categorieRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new BoutiqueException("La catégorie avec l'id: " + publicId + ", n'existe pas."));
