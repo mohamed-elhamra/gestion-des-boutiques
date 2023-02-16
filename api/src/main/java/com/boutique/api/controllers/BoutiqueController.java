@@ -54,7 +54,7 @@ public class BoutiqueController {
             @ApiResponse(responseCode = "404", description = "Not found")
     })
     @GetMapping("/{publicId}")
-    public ResponseEntity<BoutiqueResponseDto> getAllBoutique(@PathVariable String publicId) {
+    public ResponseEntity<BoutiqueResponseDto> getBoutique(@PathVariable String publicId) {
         return ResponseEntity.ok(boutiqueService.getBoutique(publicId));
     }
 

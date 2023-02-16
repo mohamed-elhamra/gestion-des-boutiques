@@ -9,4 +9,6 @@ public interface ProduitService {
 
     ProduitResponseDto updateProduit(String publicId, ProduitCreationDto produitCreationDto);
 
+    ProduitResponseDto getProduit(String publicId);
+
 }
