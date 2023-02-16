@@ -103,6 +103,21 @@ public class ProduitServiceImpl implements ProduitService {
         return produitMapper.toProduitResponseDto(produitByPublicId);
     }
 
+    @Override
+    public void deleteProduit(String publicId) {
+        logger.trace("Exécution de deleteProduit()");
+
+        logger.debug("Vérifier si le produit existe avec cet id public.");
+        Produit produitByPublicId = produitRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new BoutiqueException("Il n y a pas un produit avec cet id: " + publicId));
+
+        produitByPublicId.getCategories().clear();
+        produitRepository.save(produitByPublicId);
+
+        logger.debug("Suppression produit.");
+        produitRepository.delete(produitByPublicId);
+    }
+
     private Categorie fromPublicIdToCategorie(String publicId) {
         return categorieRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new BoutiqueException("La catégorie avec l'id: " + publicId + ", n'existe pas."));

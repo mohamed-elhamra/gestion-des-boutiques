@@ -40,8 +40,8 @@ public class Produit {
     @ManyToMany
     @JoinTable(
             name = "categories_produits",
-            joinColumns = {@JoinColumn(name = "categories_id")},
-            inverseJoinColumns = {@JoinColumn(name = "produits_id")}
+            joinColumns = {@JoinColumn(name = "produits_id")},
+            inverseJoinColumns = {@JoinColumn(name = "categories_id")}
     )
     @ToString.Exclude
     private Set<Categorie> categories;
