@@ -3,6 +3,8 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Categorie } from '../models/categorie.model';
 import { HttpClient } from '@angular/common/http';
 import { CategorieService } from '../services/categorie.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-create-categorie',
   templateUrl: './create-categorie.component.html',
@@ -12,7 +14,7 @@ export class CreateCategorieComponent{
 
   categorie: Categorie = new Categorie();
 
-  constructor(private http: HttpClient, private categorieService: CategorieService) {}
+  constructor(private http: HttpClient, private categorieService: CategorieService, private router: Router) {}
 
   onSubmit() {
     console.log(this.categorie);
@@ -20,10 +22,12 @@ export class CreateCategorieComponent{
       response => {
         console.log(response);
         alert('La catégorie a été ajoutée avec succès.');
+        this.router.navigate(['/listeCategories']);
       },
       error => {
         console.log(error);
         alert('Une erreur s\'est produite lors de l\'ajout de la catégorie.');
+        this.router.navigate(['/listeCategories']);
       }
     );
   }
