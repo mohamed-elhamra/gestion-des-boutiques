@@ -3,9 +3,11 @@ package com.boutique.api.services;
 import com.boutique.api.commons.exceptions.BoutiqueException;
 import com.boutique.api.commons.mappers.BoutiqueMapper;
 import com.boutique.api.commons.mappers.HoraireOuvertureMapper;
+import com.boutique.api.commons.mappers.ProduitMapper;
 import com.boutique.api.commons.utils.IDGenerator;
 import com.boutique.api.dtos.boutiques.BoutiqueCreationDto;
 import com.boutique.api.dtos.boutiques.BoutiqueResponseDto;
+import com.boutique.api.dtos.produits.ProduitResponseDto;
 import com.boutique.api.entities.Boutique;
 import com.boutique.api.entities.HoraireOuverture;
 import com.boutique.api.repositories.BoutiqueRepository;
@@ -30,6 +32,7 @@ public class BoutiqueServiceImpl implements BoutiqueService {
     private HoraireOuvertureRepository horaireOuvertureRepository;
     private BoutiqueMapper boutiqueMapper;
     private HoraireOuvertureMapper hoMapper;
+    private ProduitMapper produitMapper;
     private IDGenerator idGenerator;
     private final Logger logger = LoggerFactory.getLogger(CategorieServiceImpl.class);
 
@@ -132,6 +135,18 @@ public class BoutiqueServiceImpl implements BoutiqueService {
 
         logger.debug("Récupération boutique.");
         return boutiqueMapper.toBoutiqueResponseDto(boutique);
+    }
+
+    @Override
+    public List<ProduitResponseDto> getProduits(String publicId) {
+        logger.trace("Exécution de getProduits()");
+        Boutique boutique = boutiqueRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new BoutiqueException("Il n y a pas une boutique avec cet id: " + publicId));
+
+        logger.trace("Récupération des produits");
+        return boutique.getProduits().stream()
+                .map(produitMapper::toProduitResponseDto)
+                .collect(Collectors.toList());
     }
 
 }
