@@ -1,4 +1,4 @@
-export class Categorie{
+export class CategorieResponse{
     publicId : string = '';
     nom: string = '';
 }
