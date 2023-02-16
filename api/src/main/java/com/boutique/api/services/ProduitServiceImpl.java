@@ -92,6 +92,17 @@ public class ProduitServiceImpl implements ProduitService {
         return produitMapper.toProduitResponseDto(produitRepository.save(produit));
     }
 
+    @Override
+    public ProduitResponseDto getProduit(String publicId) {
+        logger.trace("Exécution de getProduit()");
+
+        logger.debug("Vérifier si le produit existe avec cet id public.");
+        Produit produitByPublicId = produitRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new BoutiqueException("Il n y a pas un produit avec cet id: " + publicId));
+
+        return produitMapper.toProduitResponseDto(produitByPublicId);
+    }
+
     private Categorie fromPublicIdToCategorie(String publicId) {
         return categorieRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new BoutiqueException("La catégorie avec l'id: " + publicId + ", n'existe pas."));
