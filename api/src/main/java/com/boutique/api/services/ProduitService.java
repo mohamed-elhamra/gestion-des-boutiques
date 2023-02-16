@@ -7,4 +7,6 @@ public interface ProduitService {
 
     ProduitResponseDto createProduit(ProduitCreationDto produitCreationDto);
 
+    ProduitResponseDto updateProduit(String publicId, ProduitCreationDto produitCreationDto);
+
 }
