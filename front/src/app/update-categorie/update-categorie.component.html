@@ -1,14 +1,17 @@
+
 <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
     <div class="card p-3">
         <h2 class="text-center mb-4">Ajouter une catégorie</h2>
         <form (ngSubmit)="onSubmit()">
+            <div *ngIf="updateForm" [formGroup]="updateForm">
             <div class="form-group">
                 <label for="nomCategorie" class="mb-1">Nom de la catégorie :</label>
-                <input type="text" class="form-control" id="nomCategorie" name="nomCategorie" [(ngModel)]="categorie.nom">
+                <input type="text" class="form-control" id="nomCategorie" name="nomCategorie" formControlName="nom" required>
             </div> <br/>
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">Envoyer</button>
             </div>
+        </div>
         </form>
     </div>
 </div>
