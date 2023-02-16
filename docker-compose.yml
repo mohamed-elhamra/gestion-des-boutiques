@@ -37,18 +37,18 @@ services:
       - MYSQL_ROOT_PASSWORD=mohamed
       - SPRING_PROFILES_ACTIVE=docker
     ports:
-      - 8081:8081 # Forward the exposed port 8081 on the container to port 8081 on the host machine
+      - 8080:8080 # Forward the exposed port 8081 on the container to port 8081 on the host machine
     links:
       - db
 
   #Front-end Angular Application
-  # front:
-  #  build: ./front
-  #  container_name: front
-  #  ports:
-  #    - 4200:80
-  #  links:
-  #    - api
+  front:
+   build: ./front
+   container_name: front
+   ports:
+     - 4200:80
+   links:
+     - api
 
 #Volumes for DB data
 volumes:
