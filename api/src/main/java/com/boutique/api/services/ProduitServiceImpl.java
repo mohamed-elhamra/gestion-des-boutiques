@@ -111,10 +111,6 @@ public class ProduitServiceImpl implements ProduitService {
         Produit produitByPublicId = produitRepository.findByPublicId(publicId)
                 .orElseThrow(() -> new BoutiqueException("Il n y a pas un produit avec cet id: " + publicId));
 
-        produitByPublicId.getCategories().clear();
-        produitRepository.save(produitByPublicId);
-
-        logger.debug("Suppression produit.");
         produitRepository.delete(produitByPublicId);
     }
 

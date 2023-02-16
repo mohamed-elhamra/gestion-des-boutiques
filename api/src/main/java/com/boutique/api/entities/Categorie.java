@@ -23,7 +23,7 @@ public class Categorie {
     @Column(length = 60, nullable = false, unique = true)
     private String nom;
 
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private Set<Produit> produits;
 
