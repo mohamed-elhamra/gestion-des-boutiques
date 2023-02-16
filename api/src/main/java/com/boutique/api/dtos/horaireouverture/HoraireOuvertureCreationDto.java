@@ -14,8 +14,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class HoraireOuvertureCreationDto {
 
-    @Min(value = 1, message = "Le jour doit être une valeur entre 1 (Lundi) et 7 (Dimanche).")
-    @Max(value = 7, message = "Le jour doit être une valeur entre 1 (Lundi) et 7 (Dimanche).")
+    @Min(value = 1, message = "Le jour doit être une valeur entre 1 (Dimanche) et 7 (Samedi).")
+    @Max(value = 7, message = "Le jour doit être une valeur entre 1 (Dimanche) et 7 (Samedi).")
     private int jour;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
