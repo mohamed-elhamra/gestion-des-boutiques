@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -41,7 +40,9 @@ public class BoutiqueServiceImpl implements BoutiqueService {
 
         logger.debug("Vérifier si une boutique existe déjà avec le même nom.");
         boutiqueRepository.findByNom(boutiqueCreationDto.getNom())
-                .ifPresent((boutique) -> {throw new BoutiqueException("Une boutique avec le nom: " + boutique.getNom() +", existe déjà");});
+                .ifPresent((boutique) -> {
+                    throw new BoutiqueException("Une boutique avec le nom: " + boutique.getNom() + ", existe déjà");
+                });
 
         Boutique boutique = boutiqueMapper.toBoutique(boutiqueCreationDto);
         Set<HoraireOuverture> horaireOuvertures = boutique.getHoraireOuvertures();
@@ -84,7 +85,7 @@ public class BoutiqueServiceImpl implements BoutiqueService {
         Optional<Boutique> boutiqueByNom = boutiqueRepository.findByNom(boutiqueCreationDto.getNom());
 
         logger.debug("Vérifier si la boutique existe déjà avec le même nom.");
-        if(boutiqueByNom.isPresent() && !boutiqueByNom.get().getNom().equals(boutiqueByPublicId.getNom()))
+        if (boutiqueByNom.isPresent() && !boutiqueByNom.get().getNom().equals(boutiqueByPublicId.getNom()))
             throw new BoutiqueException("La boutique avec le nom: " + boutiqueCreationDto.getNom() + ", existe déjà.");
 
         logger.debug("MàJ de la boutique.");

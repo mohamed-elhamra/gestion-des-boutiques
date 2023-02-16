@@ -1,10 +1,8 @@
 package com.boutique.api.entities;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.Objects;
 import java.util.Set;
 
 @Setter
@@ -22,7 +20,7 @@ public class Produit {
     @Column(nullable = false, unique = true)
     private String publicId;
 
-    @Column(length = 60, nullable = false, unique = true)
+    @Column(length = 60, nullable = false)
     private String nom;
 
     @Column(nullable = false)
