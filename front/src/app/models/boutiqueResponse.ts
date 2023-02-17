@@ -1,7 +1,9 @@
 import { HoraireOuvertureFermeture } from "./HoraireOuvrertureFermeture";
 
-export class Boutique{
-    nom: string = '';
-    isConge: boolean = false;
+export class boutiqueResponse{
+    publicId!: string;
+    nom!: string;
+    isConge!: boolean;
+    dateCreation!: Date;
     horaireOuvertures!: HoraireOuvertureFermeture[];
 }
