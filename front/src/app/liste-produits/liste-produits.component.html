@@ -1,0 +1,35 @@
+<div class="container">
+    <h1>Liste des produits</h1>
+    <select [(ngModel)]="selectedBoutique" (change)="onBoutiqueChange()">
+      <option *ngFor="let boutique of boutiques" [ngValue]="boutique.publicId">{{ boutique.nom }}</option>
+    </select>
+  
+    <div class="row">
+      <div *ngFor="let produit of produits" class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ produit.nom }}</h5>
+            <p class="card-text">{{ produit.description }}</p>
+            <p class="card-text">Prix : {{ produit.prix }}</p>
+            <p class="card-text">Quantité : {{ produit.quantite }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ag-grid-angular
+        style="height: 450px;"
+        class="ag-theme-alpine"
+        [frameworkComponents]="frameworkComponents"
+        [rowData]="produits"
+        [columnDefs]="columnDefs"
+        [gridOptions]="gridOptions"
+        [defaultColDef]="defaultColDef"
+        [enableRangeSelection]="true"
+        [animateRows]="true"
+        [pagination]="true"
+        [suppressMovableColumns]="true"
+        [paginationPageSize]="7"
+        (gridReady)="onGridReady($event)"
+      >
+      </ag-grid-angular>

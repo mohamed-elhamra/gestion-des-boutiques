@@ -16,4 +16,9 @@ export class ProduitService {
     console.log(`${environment.apiURL}/produits`);
     return this.http.post<ProduitResponse>(`${environment.apiURL}/produits`, produitCreation);
   }
+  
+  getProduitsByBoutique(boutiqueId: string): Observable<ProduitResponse[]> {
+    const url = `${environment.apiURL}/boutiques/${boutiqueId}/produits`;
+    return this.http.get<ProduitResponse[]>(url);
+  }
 }

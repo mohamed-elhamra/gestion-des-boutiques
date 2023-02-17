@@ -7,6 +7,7 @@ import { UpdateCategorieComponent } from './update-categorie/update-categorie.co
 import { DetailsCategorieComponent } from './details-categorie/details-categorie.component';
 import { ListeBoutiquesComponent } from './liste-boutiques/liste-boutiques.component';
 import { CreateProduitComponent } from './create-produit/create-produit.component';
+import { ListeProduitsComponent } from './liste-produits/liste-produits.component';
 
 const routes: Routes = [
   { path: 'createBoutique', component: CreateBoutiqueComponent },
@@ -16,7 +17,7 @@ const routes: Routes = [
   { path: 'categories/:publicId', component: DetailsCategorieComponent },
   { path: 'updateCategorie/:publicId', component: UpdateCategorieComponent },
   { path: 'createProduit', component: CreateProduitComponent },
-
+  { path: 'listeProduits', component: ListeProduitsComponent }
 ];
 
 @NgModule({
