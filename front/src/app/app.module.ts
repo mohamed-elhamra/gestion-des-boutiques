@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ActionCellRendererComponent } from './action-cell-renderer/action-cell-renderer.component';
 import { ListeBoutiquesComponent } from './liste-boutiques/liste-boutiques.component';
 import { CreateProduitComponent } from './create-produit/create-produit.component';
+import { ListeProduitsComponent } from './liste-produits/liste-produits.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CreateProduitComponent } from './create-produit/create-produit.componen
     UpdateCategorieComponent,
     ActionCellRendererComponent,
     ListeBoutiquesComponent,
-    CreateProduitComponent
+    CreateProduitComponent,
+    ListeProduitsComponent
   ],
   imports: [
     BrowserModule,
