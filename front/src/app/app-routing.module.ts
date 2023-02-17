@@ -6,6 +6,7 @@ import { ListeCategoriesComponent } from './liste-categories/liste-categories.co
 import { UpdateCategorieComponent } from './update-categorie/update-categorie.component';
 import { DetailsCategorieComponent } from './details-categorie/details-categorie.component';
 import { ListeBoutiquesComponent } from './liste-boutiques/liste-boutiques.component';
+import { CreateProduitComponent } from './create-produit/create-produit.component';
 
 const routes: Routes = [
   { path: 'createBoutique', component: CreateBoutiqueComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'listeBoutiques', component: ListeBoutiquesComponent },
   { path: 'categories/:publicId', component: DetailsCategorieComponent },
   { path: 'updateCategorie/:publicId', component: UpdateCategorieComponent },
+  { path: 'createProduit', component: CreateProduitComponent },
 
 ];
 
