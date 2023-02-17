@@ -13,6 +13,7 @@ import { UpdateCategorieComponent } from './update-categorie/update-categorie.co
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActionCellRendererComponent } from './action-cell-renderer/action-cell-renderer.component';
+import { ListeBoutiquesComponent } from './liste-boutiques/liste-boutiques.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ActionCellRendererComponent } from './action-cell-renderer/action-cell-
     ListeCategoriesComponent,
     DetailsCategorieComponent,
     UpdateCategorieComponent,
-    ActionCellRendererComponent
+    ActionCellRendererComponent,
+    ListeBoutiquesComponent
   ],
   imports: [
     BrowserModule,

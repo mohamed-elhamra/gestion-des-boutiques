@@ -1,0 +1,16 @@
+.horaires-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 5px;
+  }
+  
+  .horaires-row {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+  
+  .horaires-cell {
+    padding: 5px;
+    border: 1px solid black;
+  }
+      

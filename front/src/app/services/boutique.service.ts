@@ -16,4 +16,7 @@ export class BoutiqueService {
   createBoutique(boutiqueData: any): Observable<any> {
     return this.http.post(this.baseUrl, boutiqueData);
   }
+  getAllBoutiques(): Observable<boutiqueResponse[]> {
+    return this.http.get<boutiqueResponse[]>(`${this.baseUrl}`);
+  }
 }
